@@ -3,7 +3,6 @@ package buri.sc.y26.q01
 import buri.sc.common.BasePuzzle
 import buri.sc.common.Part
 import org.junit.Test
-import kotlin.math.max
 
 /**
  * Entry point for a daily puzzle
@@ -21,7 +20,7 @@ class Puzzle : BasePuzzle() {
     @Test
     fun runPart2() {
         assertRun(3, 1)
-        assertRun(0, 0, true)
+        assertRun(401, 0, true)
     }
 
     /**
@@ -42,13 +41,12 @@ class Puzzle : BasePuzzle() {
         if (part.isOne()) {
             return ranges.maxOf { it.timeEnabled - it.timeDisabled }
         }
-        
+
         val disabledCount = mutableMapOf<Int, Int>()
         for ((_, timeDisabled, timeEnabled) in ranges) {
             for (i in timeDisabled..timeEnabled) {
                 if (disabledCount[i] == null) {
                     disabledCount[i] = ranges.count { it.inRange(i) }
-                    println("$i ${ranges.count { it.inRange(i) }}")
                 }
             }
         }
@@ -78,6 +76,5 @@ data class Event(val line: String) {
 }
 
 data class DisabledRange(val reactor: Int, val timeDisabled: Int, val timeEnabled: Int) {
-    fun getLength() = timeEnabled - timeDisabled
-    fun inRange(test: Int) = (test >= timeDisabled && test < timeEnabled)
+    fun inRange(test: Int) = (test in timeDisabled..<timeEnabled)
 }
