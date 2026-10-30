@@ -23,12 +23,6 @@ class Puzzle : BasePuzzle() {
         assertRun(0, 0, true)
     }
 
-    @Test
-    fun runPart3() {
-        assertRun(0, 1)
-        assertRun(0, 0, true)
-    }
-
     /**
      * Executes a part of the puzzle using the specified input.
      */
@@ -39,10 +33,7 @@ class Puzzle : BasePuzzle() {
         if (part.isOne()) {
             return -1
         } 
-        if (part.isTwo()) {
-            return -1
-        }
-        // Part 3
+        // Part 2
         return -1
     }
 }
