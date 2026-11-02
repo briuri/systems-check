@@ -27,7 +27,8 @@ abstract class BasePuzzle {
         val quest = getQuest()
         val part = when (getPart()) {
             "1" -> Part.ONE
-            else -> Part.TWO
+            "2" -> Part.TWO
+            else -> Part.THREE
         }
 
         val filename = "${quest}-$fileIndex.txt"
@@ -116,7 +117,7 @@ fun <T> generatePermutations(input: List<T>, index: Int = 0): MutableSet<String>
  * Enumeration of puzzle parts
  */
 enum class Part(val number: Int) {
-    ONE(1), TWO(2);
+    ONE(1), TWO(2), THREE(3);
 
     /**
      * Returns true if this is Part ONE.
@@ -127,6 +128,11 @@ enum class Part(val number: Int) {
      * Returns true if this is Part TWO.
      */
     fun isTwo(): Boolean = (number == 2)
+    
+    /**
+     * Returns true if this is Part THREE.
+     */
+    fun isThree(): Boolean = (number == 3)
 }
 
 /**
