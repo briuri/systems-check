@@ -2,7 +2,6 @@ package buri.sc.y26.q06
 
 import buri.sc.common.BasePuzzle
 import buri.sc.common.Part
-import buri.sc.common.position.Grid
 import buri.sc.common.position.Point2D
 import org.junit.Test
 
