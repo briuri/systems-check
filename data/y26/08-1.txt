@@ -1,0 +1,40 @@
+joj-[182]>wpl
+bxl-[250]>poe
+jao-[197]>twz
+iqp-[222]>frs
+wpl-[100]>fya
+cuk-[183]>twz
+ixl-[49]>twz
+ozm-[246]>pai
+fya-[291]>inc
+vup-[84]>jao
+cph-[49]>jao
+qdi-[81]>cuk
+twz-[45]>frs
+pai-[178]>vym
+cqu-[64]>cuk
+poe-[60]>fya
+vym-[287]>fya
+gkx-[293]>iqp
+frs-[77]>inc
+
+joj 50
+twz 86
+qdi 219
+pai 172
+cph 139
+iqp 0
+ixl 0
+frs 173
+vym 0
+inc 0
+cuk 117
+wpl 195
+bxl 0
+cqu 0
+ozm 292
+poe 0
+jao 0
+vup 0
+gkx 0
+fya 398
