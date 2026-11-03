@@ -128,17 +128,6 @@ class Puzzle : BasePuzzle() {
                 val isPartAvailable = index !in returningParts.keys
                 val isToolAvailable = op.tool !in lockedTools && op.tool !in returningTools.keys
                 if (op.machine !in lockedMachines && isPartAvailable && isToolAvailable) {
-                    // Special Case: Evict freed part from this machine so another job can use it.
-                    freedParts.filter { it.value.machine == op.machine }.forEach {
-                        if (index != it.key) {
-                            freedParts.remove(it.key)
-                            returningParts[it.key] =
-                                time + staging.getManhattanDistance(machines[op.machine]!!.position()).toInt()
-                            op.prevPartPosition = staging
-                            println("\tPart ${it.key + 1} kicked off M${op.machine} to staging. Will arrive at ${returningParts[it.key]}.")
-                        }
-                    }
-                    
                     op.status = Status.RUNNING
                     lockedMachines.add(op.machine)
                     lockedTools.add(op.tool)
