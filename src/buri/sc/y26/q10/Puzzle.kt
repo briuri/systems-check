@@ -25,6 +25,10 @@ class Puzzle : BasePuzzle() {
         assertRun(142, 1)
         // Incorrect: 15499, 15852, 16020
         assertRun(0, 0, true)
+        
+        // Extra Input from secondary account
+        // Incorrect: 15193
+//        assertRun(0, 2, true)
     }
 
     val staging = Point2D(0, 0)
@@ -89,17 +93,17 @@ class Puzzle : BasePuzzle() {
         
         var time = 0
         while (!(jobs.flatten().all { it.status == Status.DONE } && returningParts.isEmpty() && returningTools.isEmpty() )) {
-            println(time)
+            println("t=$time")
             
             // Check if parts have returned to staging.
             returningParts.filter { it.value == time }.forEach {
-                println("\tPart ${it.key + 1} returned to staging.")
+                println("\tRETURNED Part ${it.key + 1} at staging.")
                 returningParts.remove(it.key)
             }
             
             // Check if tools have returned to staging.
             returningTools.filter { it.value == time }.forEach {
-                println("\tTool ${it.key} returned to staging.")
+                println("\tRETURNED Tool ${it.key} at staging.")
                 returningTools.remove(it.key) 
             }
             
@@ -113,9 +117,9 @@ class Puzzle : BasePuzzle() {
                     val machinePosition = machines[op.machine]!!.position()
                     returningTools[op.tool] = time + machinePosition.getManhattanDistance(staging).toInt()
                     freedParts[index] = op
-                    println("\tJ${index + 1}$op stopped.")
-                    println("\tTool ${op.tool} returning to staging. Will arrive at ${returningTools[op.tool]!!}.")
-                    println("\tPart ${index + 1} freed on M${op.machine}.")
+                    println("\tSTOP     J${index + 1}$op")
+                    println("\tRELEASE  Part ${index + 1} freed on M${op.machine}.")
+                    println("\tSENDBACK Tool ${op.tool} arriveTime=${returningTools[op.tool]!!}.")
                 }                
             }
             
@@ -134,13 +138,13 @@ class Puzzle : BasePuzzle() {
                     val machinePosition = machines[op.machine]!!.position()
                     val toolPosition = staging
                     if (index in freedParts.keys) {
-                        println("\tPart ${index + 1} reclaimed from M${freedParts[index]!!.machine}.")
+                        println("\tCLAIM    Part ${index + 1} from M${freedParts[index]!!.machine}.")
                         freedParts.remove(index)
                     }
                     val partTime = machinePosition.getManhattanDistance(op.prevPartPosition)
                     val toolTime = machinePosition.getManhattanDistance(toolPosition)
                     op.endTime = time + max(partTime, toolTime).toInt() + op.duration
-                    println("\tJ${index + 1}$op started. Will end at ${op.endTime}.")
+                    println("\tSTART    J${index + 1}$op endTime=${op.endTime}.")
                 }
             }
             
@@ -148,7 +152,7 @@ class Puzzle : BasePuzzle() {
             for ((part, op) in freedParts) {
                 returningParts[part] = time + staging.getManhattanDistance(machines[op.machine]!!.position()).toInt()
                 op.prevPartPosition = staging
-                println("\tPart ${part + 1} returning to staging. Will arrive at ${returningParts[part]}.")
+                println("\tSENDBACK Part ${part + 1} arriveTime=${returningParts[part]}.")
             }
             freedParts.clear()
             time++
